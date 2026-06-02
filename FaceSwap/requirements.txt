@@ -1,0 +1,13 @@
+numpy
+Pillow
+mediapipe
+tqdm
+scipy
+scikit-image
+imageio
+moviepy
+onnx
+onnxruntime-gpu
+timm==0.5.4
+tensorboard
+matplotlib
