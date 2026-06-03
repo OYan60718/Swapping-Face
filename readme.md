@@ -108,10 +108,10 @@ ID cos similarity | ID retrieval | Posture error (deg)
 |---|---|---|
 | 0.711 | 98.0% | 3.687 |
 
-Values are printed to stdout during the final evaluation pass. The quantitative results are comparable with the results provided in SimSwap's paper, which indicates that this training code is valid. Top row: source, middel row: donor, bottom row: swapped.
+Values are printed to stdout during the final evaluation pass. The quantitative results are comparable with the results provided in SimSwap's paper, which indicates that this training code is valid.
 
 ### Example Qualitative Results
-Examples qualitative results show successful face swapping, while the performance can be improved by leveraging larger datasets with multiple images for each ID or using larger batch size as suggested by the authors (16 image per batch vs 3 image per batch).
+Examples qualitative results show successful face swapping, while the performance can be improved by leveraging larger datasets with multiple images for each ID or using larger batch size as suggested by the authors (16 image per batch vs 3 image per batch).  Top row: source, middel row: donor, bottom row: swapped.
 
 ![results1](/figs/test_1.jpg)
 
