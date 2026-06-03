@@ -21,7 +21,7 @@ docker build -t faceswap .
 cd ..
 ```
 
-Download the LFW dataset to the `data` folder.
+Download the LFW dataset to the `data` folder: https://www.kaggle.com/datasets/atulanandjha/lfwpeople?resource=download
 
 ---
 ## Training
@@ -69,7 +69,7 @@ arcface.onnx      # input: donnor image
 ```
 
 ### Dataset Update
-The training script supports update of dataset, such as adding or removing data from the dataset. To enable this, set the `refresh_freq` in `train_config.json`, which defines the frequency of checking for updates in dataset during training, remove this setting from the config file to disable it. When new data is added/removed from the existing dataset, the dataloader update the dataset every `refresh_freq` steps and replit the dataset to `train`, `test`, and `val` sets, existing data split remains unchanged, and new data is split and added to these sets based on the split ratio, if too few images are added (smaller than 10 ids), they are added to training set only.
+The training script supports update of dataset, such as adding or removing data from the dataset. To enable this, set the `refresh_freq` in `train_config.json`, which defines the frequency of checking for updates in dataset during training. Remove this setting from the config file to disable it. When new data is added/removed from the existing dataset, the dataloader update the dataset every `refresh_freq` steps and replit the dataset to `train`, `test`, and `val` sets, existing data split remains unchanged, and new data is split and added to these sets based on the split ratio, if too few images are added (smaller than 10 ids), they are added to training set only.
 
 ---
 ## Evaluation
@@ -81,7 +81,7 @@ Evaluation is implemented in `evaluate.py` and reports three metrics on the test
 | Metric | Description | Direction |
 |---|---|---|
 | **ID cosine similarity** | Cosine similarity between the swapped image's identity embedding and the donor's embedding. | High |
-| **ID retrieval accuracy** | Top-1 accuracy of a nearest-neighbour identity search over the full gallery, determined by wheter ArcFace model retrieve the correct donor identity from the swapped images. | High |
+| **ID retrieval accuracy** | Top-1 accuracy of a nearest-neighbour identity search over the full gallery, determined by whether the ArcFace model retrieves the correct donor identity from the swapped images. | High |
 | **Posture error** | Mean yaw, pitch, roll L1 error between the background image and the swapped image. | Low |
 
 ### Running evaluation
@@ -100,7 +100,7 @@ Training and validation losses over 50000 steps, training from a pretrained gene
 
 ![Loss history](/figs/loss_history.png)
 
-Loss curves indicates the most of the losses functions, especially the validation losses, are decreasing during the training process. However, this decline is not obvious mainly due to using a pretrained model weight.
+Loss curves indicate that most of the loss functions, especially the validation losses, are decreasing during the training process. However, this decline is not obvious mainly due to using a pretrained model weight.
 
 ### Evaluation metrics at step 50000
 
@@ -108,10 +108,10 @@ ID cos similarity | ID retrieval | Posture error (deg)
 |---|---|---|
 | 0.711 | 98.0% | 3.687 |
 
-Values are printed to stdout during the final evaluation pass. The quntative results are comparable with the results provided in SimSwap's paper, which indicates that this training code is valid. Top row: source, middel row: donor, bottom row: swapped.
+Values are printed to stdout during the final evaluation pass. The quantitative results are comparable with the results provided in SimSwap's paper, which indicates that this training code is valid. Top row: source, middel row: donor, bottom row: swapped.
 
 ### Example Qualitative Results
-Examples qualitative results shows successful face swapping, while the performance can be improved by leveraging larger datasets with multiple images for each ID or using larger batch size as suggested by the authers (16 image per batch vs 3 image per batch).
+Examples qualitative results show successful face swapping, while the performance can be improved by leveraging larger datasets with multiple images for each ID or using larger batch size as suggested by the authors (16 image per batch vs 3 image per batch).
 
 ![results1](/figs/test_1.jpg)
 
@@ -122,7 +122,7 @@ Examples qualitative results shows successful face swapping, while the performan
 
 ## Inference
 
-Inference uses the exported ONNX models. Both **image** and **video** inputs are supported, whcih are detected automatically from the file extension. Sample video and images are provided in `samples` folder, images are sourced from internet, do not distribute, video is sourced from Kaggle at https://www.kaggle.com/datasets/simongraves/deepfake-dataset?select=video.
+Inference uses the exported ONNX models. Both **image** and **video** inputs are supported, which are detected automatically from the file extension. Sample video and images are provided in `samples` folder, images are sourced from the internet, do not distribute, video is sourced from Kaggle at https://www.kaggle.com/datasets/simongraves/deepfake-dataset?select=video.
 
 Limitation: the current method uses the SCRFD face detector [3] from the Insightface library (https://github.com/deepinsight/insightface) to detect the positions of the face from the images/video frames and to predict the facial keypoints for alignment purposes. The implementation only supports single face detection at the moment, while multiple face detection can also be implemented with other functions in this library.
 
