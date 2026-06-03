@@ -28,7 +28,7 @@ Download the LFW dataset to the `data` folder: https://www.kaggle.com/datasets/a
 
 ```bash
 # Run training (mount data, checkpoints, and ArcFace weights)
-docker run --rm -it --gpus all -e CUDA_VISIBLE_DEVICES=0 -p 6002:6002 -v C:\Users\yanch\Desktop\Others\faceswap:/workspace  faceswap:latest   python FaceSwap/train.py --config FaceSwap/train_config.json
+docker run --rm -it --gpus all -e CUDA_VISIBLE_DEVICES=0 -p 6002:6002 -v <root_dir>:/workspace  faceswap:latest   python FaceSwap/train.py --config FaceSwap/train_config.json
 ```
 
 TensorBoard is started automatically on port `6002` by default. Access it at `http://localhost:6002`.
@@ -128,10 +128,10 @@ Limitation: the current method uses the SCRFD face detector [3] from the Insight
 
 ```bash
 # Image inference
-docker run --rm -it --gpus all -e CUDA_VISIBLE_DEVICES=0 -p 6002:6002 -v C:\Users\yanch\Desktop\Others\faceswap:/workspace  faceswap:latest   python FaceSwap/inference.py --source samples/<source>.png --donor samples/<donor>.png
+docker run --rm -it --gpus all -e CUDA_VISIBLE_DEVICES=0 -p 6002:6002 -v <root_dir>:/workspace  faceswap:latest   python FaceSwap/inference.py --source samples/<source>.png --donor samples/<donor>.png
 
 # Video inference
-docker run --rm -it --gpus all -e CUDA_VISIBLE_DEVICES=0 -p 6002:6002 -v C:\Users\yanch\Desktop\Others\faceswap:/workspace  faceswap:latest   python FaceSwap/inference.py --source samples/<source>.mp4 --donor samples/<donor>.png
+docker run --rm -it --gpus all -e CUDA_VISIBLE_DEVICES=0 -p 6002:6002 -v <root_dir>:/workspace  faceswap:latest   python FaceSwap/inference.py --source samples/<source>.mp4 --donor samples/<donor>.png
 ```
 
 The default path to the ONNX models are the saved path from the training code, if saved in different locations, please provide them via parser `--onnx-dir`.
